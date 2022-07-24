@@ -27,6 +27,13 @@ namespace Merge_Interval.Model
         public abstract TNumber End { get; set; }
 
         /// <summary>
+        /// End value of the interval
+        /// </summary>
+        public static IComparer<IntervalBase<TInterval, TNumber>> SortByStartValue => new CompareIntervalByStart<TInterval, TNumber>();
+
+        public static IComparer<IntervalBase<TInterval, TNumber>> SortByEndValue => new CompareIntervalByEnd<TInterval, TNumber>();
+
+        /// <summary>
         /// Determines if the given interval overlaps with the current one, false otherwise.
         /// </summary>
         /// <param name="compareInterval">Interval to compare to.</param>
