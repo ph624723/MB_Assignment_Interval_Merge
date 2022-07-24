@@ -53,26 +53,5 @@ namespace Merge_Interval.Model.Interval
             _start = start;
             _end = end;
         }
-
-        /// <param name="compareInterval">SafeInterval to compare to. Cannot be null or a NoNullAllowedException will be thorwn.</param>
-        public override bool Intersects([NotNull] SafeInterval<T> compareInterval)
-            // Check input is non-null
-            => compareInterval == null
-                ? throw new NoNullAllowedException(Resources.StringResources.NullArgumentError)
-                // returns true if the intervals overlap or touch
-                : Start.CompareTo(compareInterval.End) <= 0 && End.CompareTo(compareInterval.Start) >= 0;
-
-        /// <param name="compareInterval">SafeInterval to compare to. Cannot be null or a NoNullAllowedException will be thorwn.</param>
-        public override IEnumerable<SafeInterval<T>> Union([NotNull] SafeInterval<T> compareInterval)
-        {
-            // Check input is non-null
-            if (compareInterval == null) throw new NoNullAllowedException(Resources.StringResources.NullArgumentError);
-
-            return Intersects(compareInterval) ?
-                // Intersection -> return a new interval that represents the convex hull of both intervals
-                new List<SafeInterval<T>>() { new(ComparableMathExtensions.Min(Start, compareInterval.Start), ComparableMathExtensions.Max(End, compareInterval.End)) } :
-                // No intersection -> return both intervals
-                new List<SafeInterval<T>>() { this, compareInterval };
-        }
     }
 }

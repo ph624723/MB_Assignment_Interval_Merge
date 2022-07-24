@@ -34,20 +34,6 @@ namespace Merge_Interval.Model
         public static IComparer<IntervalBase<TInterval, TNumber>> SortByEndValue => new CompareIntervalByEnd<TInterval, TNumber>();
 
         /// <summary>
-        /// Determines if the given interval overlaps with the current one, false otherwise.
-        /// </summary>
-        /// <param name="compareInterval">Interval to compare to.</param>
-        /// <returns>bool value representing overlap of the intervals.</returns>
-        public abstract bool Intersects(TInterval compareInterval);
-
-        /// <summary>
-        /// Determines the union of the current and the given interval.
-        /// </summary>
-        /// <param name="compareInterval">Interval to compare to.</param>
-        /// <returns>An IEnumerable with one Interval object should the inputs overlap or two objects otherwise.</returns>
-        public abstract IEnumerable<TInterval> Union(TInterval compareInterval);
-
-        /// <summary>
         /// Returns a string that represents the current interval as [Start,End].
         /// </summary>
         public override string ToString() => "[" + Start + "," + End + "]";

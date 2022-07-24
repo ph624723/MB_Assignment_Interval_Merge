@@ -22,16 +22,5 @@ namespace Merge_Interval.Model.Interval
             Start = start;
             End = end;
         }
-
-        public override bool Intersects(UnsafeInterval<T> compareInterval)
-            // returns true if the intervals overlap or touch
-            => Start.CompareTo(compareInterval.End) <= 0 && End.CompareTo(compareInterval.Start) >= 0;
-
-        public override IEnumerable<UnsafeInterval<T>> Union(UnsafeInterval<T> compareInterval)
-            => Intersects(compareInterval) ?
-                // Intersection -> return a new interval that represents the convex hull of both intervals
-                new List<UnsafeInterval<T>>() { new(ComparableMathExtensions.Min(Start, compareInterval.Start), ComparableMathExtensions.Max(End, compareInterval.End)) } :
-                // No intersection -> return both intervals
-                new List<UnsafeInterval<T>>() { this, compareInterval };
     }
 }
